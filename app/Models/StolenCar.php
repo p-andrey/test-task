@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Sortable;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class StolenCar extends Eloquent
 {
     use Filterable;
+    use Sortable;
 
     /**
      * The attributes that are mass assignable.

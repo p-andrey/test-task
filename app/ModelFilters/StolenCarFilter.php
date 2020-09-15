@@ -12,7 +12,7 @@ class StolenCarFilter extends ModelFilter
     public function search($sentence)
     {
         $this->where(function ($query) use ($sentence) {
-            $query->where('name', 'LIKE', "%{$sentence}%")
+            $query->where($query->getModel()->getTable() . '.name', 'LIKE', "%{$sentence}%")
                 ->orWhere('registration_number', $sentence)
                 ->orWhere('vin', $sentence);
         });
@@ -23,7 +23,7 @@ class StolenCarFilter extends ModelFilter
      */
     public function makeId($id)
     {
-        $this->where('make_id', $id);
+        $this->where($this->getModel()->getTable() . '.make_id', $id);
     }
 
     /**
@@ -31,7 +31,7 @@ class StolenCarFilter extends ModelFilter
      */
     public function makeName($name)
     {
-        $this->related('make', 'name', 'LIKE', "%{$name}%");
+        $this->related('make', 'makes.name', 'LIKE', "%{$name}%");
     }
 
     /**
@@ -39,7 +39,7 @@ class StolenCarFilter extends ModelFilter
      */
     public function modelId($id)
     {
-        $this->where('model_id', $id);
+        $this->where($this->getModel()->getTable() . '.model_id', $id);
     }
 
     /**
@@ -47,7 +47,7 @@ class StolenCarFilter extends ModelFilter
      */
     public function modelName($name)
     {
-        $this->related('model', 'name', 'LIKE', "%{$name}%");
+        $this->related('model', 'models.name', 'LIKE', "%{$name}%");
     }
 
     /**

@@ -23,6 +23,7 @@ class StolenCarController extends Controller
     {
         $stolenCars = StolenCar::with('make', 'model')
             ->filter($request->all())
+            ->sort($request->all())
             ->paginate();
 
         return StolenCarResource::collection($stolenCars)->response();
