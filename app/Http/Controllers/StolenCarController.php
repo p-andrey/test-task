@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\VinDecoderInterface;
+use App\Exports\StolenCarExport;
 use App\Http\Requests\StolenCarRequest;
 use App\Http\Resources\StolenCarResource;
 use App\Models\Make;
@@ -104,5 +105,16 @@ class StolenCarController extends Controller
         $stolenCar->delete();
 
         return response()->json([]);
+    }
+
+    /**
+     * @param  Request  $request
+     * @return \Maatwebsite\Excel\BinaryFileResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    public function export(Request $request)
+    {
+        return \Excel::download(new StolenCarExport($request), 'stolen-cars.xlsx');
     }
 }
