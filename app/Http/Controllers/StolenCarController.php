@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\VinDecoderInterface;
 use App\Http\Requests\StolenCarRequest;
+use App\Http\Resources\StolenCarResource;
 use App\Models\Make;
 use App\Models\StolenCar;
 use DB;
@@ -14,11 +15,13 @@ class StolenCarController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        $stolenCars = StolenCar::with('make', 'model')->paginate();
+
+        return StolenCarResource::collection($stolenCars)->response();
     }
 
     /**
