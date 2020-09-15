@@ -16,9 +16,9 @@ class CreateStolenCarsTable extends Migration
         Schema::create('stolen_cars', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('registration_number')->index();
+            $table->string('registration_number', 20)->index();
             $table->string('color')->index();
-            $table->string('vin', 17)->index();
+            $table->string('vin', 17)->unique();
             $table->unsignedSmallInteger('year')->index();
             $table->foreignId('make_id')->constrained('makes');
             $table->foreignId('model_id')->constrained('models');
