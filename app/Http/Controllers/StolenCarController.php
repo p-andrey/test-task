@@ -67,9 +67,13 @@ class StolenCarController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        $stolenCar = StolenCar::findOrFail($id);
+        $stolenCar->delete();
+
+        return response()->json([]);
     }
 }
