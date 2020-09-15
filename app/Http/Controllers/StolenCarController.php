@@ -8,6 +8,7 @@ use App\Http\Resources\StolenCarResource;
 use App\Models\Make;
 use App\Models\StolenCar;
 use DB;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class StolenCarController extends Controller
@@ -15,11 +16,14 @@ class StolenCarController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $stolenCars = StolenCar::with('make', 'model')->paginate();
+        $stolenCars = StolenCar::with('make', 'model')
+            ->filter($request->all())
+            ->paginate();
 
         return StolenCarResource::collection($stolenCars)->response();
     }

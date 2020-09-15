@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class StolenCar extends Eloquent
 {
+    use Filterable;
+
     /**
      * The attributes that are mass assignable.
      *
