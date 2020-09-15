@@ -18,7 +18,7 @@ class StolenCarRequest extends FormRequest
             'name' => 'required|string|min:3|max:191',
             'registration_number' => 'required|string|min:4|max:20',
             'color' => 'required|string|max:50',
-            'vin' => ['required', 'string', 'size:17', 'alpha_num', new VIN(), 'unique:stolen_cars'],
+            'vin' => ['required', 'string', 'size:17', 'alpha_num', new VIN(), 'unique:stolen_cars,vin,' . $this->route('stolen_car')],
         ];
     }
 }
