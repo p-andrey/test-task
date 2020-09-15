@@ -6,7 +6,7 @@ use App\Contracts\VinDecoderInterface;
 use App\Http\Requests\StolenCarRequest;
 use App\Models\Make;
 use App\Models\StolenCar;
-use Illuminate\Http\Request;
+use DB;
 use Illuminate\Http\Response;
 
 class StolenCarController extends Controller
@@ -31,7 +31,7 @@ class StolenCarController extends Controller
      */
     public function store(StolenCarRequest $request, VinDecoderInterface $vinDecoder)
     {
-        \DB::transaction(function () use ($request, $vinDecoder) {
+        DB::transaction(function () use ($request, $vinDecoder) {
             $info = $vinDecoder->decode($request->input('vin'));
 
             $stolenCar = new StolenCar($request->only('name', 'registration_number', 'color', 'vin'));
@@ -53,23 +53,48 @@ class StolenCarController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StolenCarRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  VinDecoderInterface  $vinDecoder
+     * @return \Illuminate\Http\JsonResponse|Response
+     * @throws \Throwable
      */
-    public function update(Request $request, $id)
+    public function update(StolenCarRequest $request, $id, VinDecoderInterface $vinDecoder)
     {
-        //
+        $stolenCar = StolenCar::findOrFail($id);
+
+        DB::transaction(function () use ($request, $stolenCar, $vinDecoder) {
+            $stolenCar = $stolenCar->fill($request->only('name', 'registration_number', 'color', 'vin'));
+
+            if ($stolenCar->isDirty('vin')) {
+                $info = $vinDecoder->decode($request->input('vin'));
+                $stolenCar->year = $info->year();
+
+                $make = Make::firstOrCreate(['name' => $info->make()]);
+                $model = $make->models()->firstOrCreate(['name' => $info->model()]);
+
+                $stolenCar->make()->associate($make);
+                $stolenCar->model()->associate($model);
+            }
+
+            $stolenCar->save();
+        });
+
+        return response()->json([]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|Response
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        $stolenCar = StolenCar::findOrFail($id);
+        $stolenCar->delete();
+
+        return response()->json([]);
     }
 }
