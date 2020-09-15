@@ -7,6 +7,18 @@ use EloquentFilter\ModelFilter;
 class StolenCarFilter extends ModelFilter
 {
     /**
+     * @param $sentence
+     */
+    public function search($sentence)
+    {
+        $this->where(function ($query) use ($sentence) {
+            $query->where('name', 'LIKE', "%{$sentence}%")
+                ->orWhere('registration_number', $sentence)
+                ->orWhere('vin', $sentence);
+        });
+    }
+
+    /**
      * @param $id
      */
     public function makeId($id)
