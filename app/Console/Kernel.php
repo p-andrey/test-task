@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\ImportMakesJob;
+use App\Jobs\ImportModelsJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,6 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->job(ImportMakesJob::class)->dailyAt('01:00');
+        $schedule->job(ImportModelsJob::class)->dailyAt('02:00');
         // $schedule->command('inspire')->hourly();
     }
 

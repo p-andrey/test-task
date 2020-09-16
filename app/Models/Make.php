@@ -11,7 +11,7 @@ class Make extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'remote_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
