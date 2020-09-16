@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "07db9401-d265-40b3-aee0-2496dd459388",
+		"name": "test-task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/stolen-cars?search=3VWDP7AJ7DM356782&makeName=VOLKSWAGEN&modelName=Jetta&color=синий&sort_field=color&sort=desc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"stolen-cars"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "3VWDP7AJ7DM356782"
+						},
+						{
+							"key": "makeName",
+							"value": "VOLKSWAGEN"
+						},
+						{
+							"key": "makeId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "modelName",
+							"value": "Jetta"
+						},
+						{
+							"key": "modelId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "year",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "color",
+							"value": "синий"
+						},
+						{
+							"key": "sort_field",
+							"value": "color"
+						},
+						{
+							"key": "sort",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"vasya\",\n    \"registration_number\": \"DE1234UU\",\n    \"color\": \"синий\",\n    \"vin\": \"3VWDP7AJ7DM356782\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/stolen-cars",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"stolen-cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"vasya Ivanov\",\n    \"registration_number\": \"VE322233\",\n    \"color\": \"синий\",\n    \"vin\": \"3VWDP7AJ7DM356782\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/stolen-cars/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"stolen-cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/stolen-cars/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"stolen-cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "makes-autocomplete",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/makes-autocomplete?sentence=v",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"makes-autocomplete"
+					],
+					"query": [
+						{
+							"key": "sentence",
+							"value": "v"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get models by make id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/get-models/482",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"get-models",
+						"482"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "export to excel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/stolen-cars/export?search=3VWDP7AJ7DM356782&makeName=VOLKSWAGEN&modelName=Jetta&color=синий&sort_field=color&sort=desc",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"stolen-cars",
+						"export"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "3VWDP7AJ7DM356782"
+						},
+						{
+							"key": "makeName",
+							"value": "VOLKSWAGEN"
+						},
+						{
+							"key": "makeId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "modelName",
+							"value": "Jetta"
+						},
+						{
+							"key": "modelId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "year",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "color",
+							"value": "синий"
+						},
+						{
+							"key": "sort_field",
+							"value": "color"
+						},
+						{
+							"key": "sort",
+							"value": "desc"
+						}
+					]
+				},
+				"description": "Окрывать в браузере"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
