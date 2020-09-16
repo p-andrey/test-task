@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MakeController;
 use App\Http\Controllers\StolenCarController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// todo maybe use auth:api middleware
 Route::apiResource('stolen-cars', StolenCarController::class)->except('show');
+Route::get('makes-autocomplete', [MakeController::class, 'makesAutocomplete']);
+Route::get('get-models/{makeId}', [MakeController::class, 'getModels']);
